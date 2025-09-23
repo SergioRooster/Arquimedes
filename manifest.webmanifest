@@ -8,14 +8,15 @@
   "description": "Seu app de organização de estudos.",
   "icons": [
     {
-      "src": "https://placehold.co/192x192/111827/facc15?text=A",
-      "type": "image/png",
+      "src": "logo arquimedes.jpeg",
+      "type": "image/jpeg",
       "sizes": "192x192"
     },
     {
-      "src": "https://placehold.co/512x512/111827/facc15?text=A",
-      "type": "image/png",
+      "src": "logo arquimedes.jpeg",
+      "type": "image/jpeg",
       "sizes": "512x512"
     }
   ]
 }
+
