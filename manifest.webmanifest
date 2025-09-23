@@ -1,0 +1,21 @@
+{
+  "name": "Arquimedes",
+  "short_name": "Arquimedes",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#111827",
+  "theme_color": "#facc15",
+  "description": "Seu app de organização de estudos.",
+  "icons": [
+    {
+      "src": "https://placehold.co/192x192/111827/facc15?text=A",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "https://placehold.co/512x512/111827/facc15?text=A",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
