@@ -39,6 +39,17 @@
         *:focus {
             outline-color: #facc15;
         }
+        /* Esconde o marcador padrão do dropdown */
+        summary::-webkit-details-marker {
+            display: none;
+        }
+        summary {
+            list-style: none;
+        }
+        /* Rotaciona a seta do dropdown quando aberto */
+        details[open] summary svg {
+            transform: rotate(180deg);
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-white">
@@ -73,45 +84,24 @@
             <!-- Seção: Horários -->
             <section id="horarios" class="page hidden">
                 <h2 class="text-2xl font-bold mb-4 text-yellow-400 border-b-2 border-yellow-400 pb-2">Horários de Aula</h2>
-                <div id="schedule-container" class="space-y-6">
-                    <!-- Dias da semana serão injetados aqui pelo JS -->
+                <div id="schedule-container" class="space-y-4">
+                    <!-- Horários de aula (dropdown) serão injetados aqui pelo JS -->
                 </div>
             </section>
             
             <!-- Seção: Plano de Estudo -->
             <section id="plano" class="page hidden">
                 <h2 class="text-2xl font-bold mb-4 text-yellow-400 border-b-2 border-yellow-400 pb-2">Plano de Estudo</h2>
-                <div id="study-plan-container" class="space-y-6">
-                    <!-- Estrutura do plano de estudo será injetada aqui pelo JS -->
+                <div id="study-plan-container" class="space-y-4">
+                    <!-- Plano de estudo (dropdown) será injetado aqui pelo JS -->
                 </div>
             </section>
 
             <!-- Seção: Apostilas -->
             <section id="apostilas" class="page hidden">
                  <h2 class="text-2xl font-bold mb-4 text-yellow-400 border-b-2 border-yellow-400 pb-2">Apostilas</h2>
-                 <div class="grid grid-cols-1 gap-4">
-                    <!-- Substitua '#' pelo link real do Google Drive -->
-                    <a href="#" target="_blank" class="bg-yellow-500 text-black font-bold py-3 px-4 rounded-lg flex items-center justify-center space-x-2 hover:bg-yellow-400 transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
-                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-                            <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
-                        </svg>
-                        <span>Apostila de Português</span>
-                    </a>
-                    <a href="#" target="_blank" class="bg-yellow-500 text-black font-bold py-3 px-4 rounded-lg flex items-center justify-center space-x-2 hover:bg-yellow-400 transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
-                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-                            <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
-                        </svg>
-                        <span>Apostila de Matemática</span>
-                    </a>
-                    <a href="#" target="_blank" class="bg-yellow-500 text-black font-bold py-3 px-4 rounded-lg flex items-center justify-center space-x-2 hover:bg-yellow-400 transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
-                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-                            <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
-                        </svg>
-                        <span>Simulados Gerais</span>
-                    </a>
+                 <div id="handouts-container" class="grid grid-cols-1 gap-4">
+                    <!-- Botões das apostilas serão injetados aqui -->
                  </div>
             </section>
         </main>
@@ -169,30 +159,21 @@
         const installButton = document.getElementById('install-btn');
 
         window.addEventListener('beforeinstallprompt', (e) => {
-            // Previne o mini-infobar de aparecer no mobile
             e.preventDefault();
-            // Guarda o evento para que possa ser acionado depois.
             deferredPrompt = e;
-            // Mostra o nosso banner customizado de instalação
             installBanner.classList.remove('hidden');
         });
 
         installButton.addEventListener('click', async () => {
-            // Esconde o banner de instalação
             installBanner.classList.add('hidden');
-            // Mostra o prompt de instalação
             deferredPrompt.prompt();
-            // Espera o usuário responder ao prompt
             const { outcome } = await deferredPrompt.userChoice;
             console.log(`User response to the install prompt: ${outcome}`);
-            // Já usamos o prompt, não podemos usar de novo, então o limpamos
             deferredPrompt = null;
         });
 
         window.addEventListener('appinstalled', () => {
-            // Esconde o banner de instalação
             installBanner.classList.add('hidden');
-            // Limpa o deferredPrompt para que ele possa ser coletado pelo garbage collector
             deferredPrompt = null;
             console.log('PWA was installed');
         });
@@ -202,72 +183,150 @@
         const navButtons = document.querySelectorAll('.nav-btn');
 
         function showPage(pageId) {
-            // Esconde todas as páginas
-            pages.forEach(page => {
-                page.classList.add('hidden');
-            });
-            
-            // Mostra a página solicitada
+            pages.forEach(page => page.classList.add('hidden'));
             const activePage = document.getElementById(pageId);
-            if (activePage) {
-                activePage.classList.remove('hidden');
-            }
+            if (activePage) activePage.classList.remove('hidden');
 
-            // Atualiza o estado ativo dos botões de navegação
             navButtons.forEach(button => {
-                if (button.dataset.page === pageId) {
-                    button.classList.remove('text-gray-400');
-                    button.classList.add('text-yellow-400');
-                } else {
-                    button.classList.remove('text-yellow-400');
-                    button.classList.add('text-gray-400');
-                }
+                button.classList.toggle('text-yellow-400', button.dataset.page === pageId);
+                button.classList.toggle('text-gray-400', button.dataset.page !== pageId);
             });
-
-            // Rola a página para o topo
             document.querySelector('main').scrollTop = 0;
         }
 
         // --- Dynamic Content Generation ---
-        const daysOfWeek = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira'];
-        const scheduleContainer = document.getElementById('schedule-container');
-        const studyPlanContainer = document.getElementById('study-plan-container');
-
-        // Função para criar a estrutura de um dia
-        function createDayStructure(day, subject) {
-            let lessonsAfternoon = '';
-            let lessonsNight = '';
-            for (let i = 1; i <= 5; i++) {
-                lessonsAfternoon += `<div class="bg-gray-700 p-2 rounded">${subject}</div>`;
-                lessonsNight += `<div class="bg-gray-700 p-2 rounded">${subject}</div>`;
+        
+        // DADOS: Horários de Aula
+        const classSchedule = {
+            'Segunda-feira': {
+                vespertino: ['História', 'História', 'Intervalo', 'Biologia', 'Biologia'],
+                noturno: ['Biologia', 'Biologia', 'Intervalo', 'História', 'História']
+            },
+            'Terça-feira': {
+                vespertino: ['Sociologia', 'Sociologia', 'Intervalo', 'Física', 'Física'],
+                noturno: ['Física', 'Física', 'Intervalo', 'Sociologia', 'Filosofia']
+            },
+            'Quarta-feira': {
+                vespertino: ['Matemática', 'Matemática', 'Intervalo', 'Geografia', 'Geografia'],
+                noturno: ['Geografia', 'Geografia', 'Intervalo', 'Português', 'Português']
+            },
+            'Quinta-feira': {
+                vespertino: ['Química', 'Química', 'Intervalo', 'Arte', 'Arte'],
+                noturno: ['Química', 'Química', 'Intervalo', 'Arte', 'Arte']
+            },
+            'Sexta-feira': {
+                vespertino: ['Filosofia', 'Filosofia', 'Intervalo', 'Português/Redação', 'Português/Redação'],
+                noturno: ['Redação', 'Redação', 'Intervalo', 'Matemática', 'Matemática']
             }
+        };
+        
+        // DADOS: Plano de Estudos
+        const studyPlan = {
+            'Segunda-feira': ['Sociologia', 'Sociologia', 'Física', 'Física'],
+            'Terça-feira': ['Matemática', 'Matemática', 'Geografia', 'Geografia'],
+            'Quarta-feira': ['Química', 'Química', 'Arte', 'Arte'],
+            'Quinta-feira': ['Filosofia', 'Filosofia', 'Português', 'Português'],
+            'Sexta-feira': ['História', 'História', 'Biologia', 'Biologia'],
+            'Sábado': ['Redação']
+        };
+
+        // DADOS: Apostilas e seus ícones
+        const handouts = {
+            'Arte': '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-palette-fill" viewBox="0 0 16 16"><path d="M12.433 10.07C14.133 10.585 16 11.15 16 8a8 8 0 1 0-15.025 3.334C.971 11.666 2.599 12.5 4.5 12.5c1.42 0 2.67-.53 3.5-1.25.313.153.654.279 1.031.369a1 1 0 0 1 1.09.288l.353.354a1 1 0 0 1 0 1.414l-.353.354a1 1 0 0 1-1.414 0l-.354-.353a1 1 0 0 1-.288-1.09c.09-.377.216-.718.37-1.03zM2 8a6 6 0 1 1 10.826 3.826A4.503 4.503 0 0 0 12.5 10.5c.666 0 1.284.14 1.826.37A6 6 0 0 1 2 8z"/><path d="M.5 8a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0zm2 0a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0zm2 0a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0zm2 0a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0zm2 0a.5.5 0 1 1 1 0 .5.5 0 0 1-1 0z"/></svg>',
+            'Biologia': '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-lungs-fill" viewBox="0 0 16 16"><path d="M8 0a.5.5 0 0 1 .5.5V5.273a9.23 9.23 0 0 1 1.635 1.558L11.5 5.5a.5.5 0 0 1 1 0v2.458l.123.051a.5.5 0 0 1 .377.489c.046.28-.072.56-.31.72l-2.073 1.34V15.5a.5.5 0 0 1-1 0v-3.332l-1.385.923a.5.5 0 0 1-.63 0L7.5 12.168V15.5a.5.5 0 0 1-1 0v-3.332l-1.385.923a.5.5 0 0 1-.63 0L3.022 11.5v-1.127a.5.5 0 0 1 .31-.462l1.285-.642a.5.5 0 0 1 .63.062L6.5 11.168V6.832a8.23 8.23 0 0 1 1.5-1.559V.5A.5.5 0 0 1 8 0ZM4.5 5.5a.5.5 0 0 1 0-1h1.284a.5.5 0 0 1 0 1H4.5Zm4-1.273V.5a.5.5 0 0 0-1 0v3.727a8.23 8.23 0 0 0-1.635 1.558L4.5 4.5a.5.5 0 0 0-1 0v2.458l-.123.051a.5.5 0 0 0-.377.489c-.046.28.072.56.31.72l2.073 1.34V12.168a.5.5 0 0 0 .315.465L7 13.083V15.5a.5.5 0 0 0 1 0v-2.417l1.185-.79a.5.5 0 0 0 .315-.465V9.832l2.073-1.34a.5.5 0 0 0 .31-.72c.115-.246.062-.533-.124-.718L10.5 5.042V4.5a.5.5 0 0 0-1 0v1.332a.5.5 0 0 0 .315.465L11 6.832v4.336a.5.5 0 0 0 .315.465l1.185.79a.5.5 0 0 0 .315.035.5.5 0 0 0 .285-.685l-1.285-2.57a.5.5 0 0 0-.63-.23l-1.285.642a.5.5 0 0 0-.315.465v.5a.5.5 0 0 0 1 0v-.5a.5.5 0 0 0-.315-.465L8.5 9.832v-5.6a.5.5 0 0 0-.815-.385l-1.285.643a.5.5 0 0 0-.315.465v.5a.5.5 0 0 0 1 0v-.5a.5.5 0 0 0-.315-.465L5.5 4.168V2.5a.5.5 0 0 0-1 0v1.668a.5.5 0 0 0 .315.465L6 5.168v5.664a.5.5 0 0 0 .815.385l1.285-.643a.5.5 0 0 0 .315-.465v-.5a.5.5 0 0 0-1 0v.5a.5.5 0 0 0 .315.465l1.185.79a.5.5 0 0 0 .63 0l1.185-.79a.5.5 0 0 0 .315-.465v-1.127a.5.5 0 0 0-.31-.462l-1.285-.642a.5.5 0 0 0-.63.062L10.5 9.168V6.832a.5.5 0 0 0-.315-.465L9 5.832V4.227Z"/></svg>',
+            'Filosofia': '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-lightbulb-fill" viewBox="0 0 16 16"><path d="M2 6a6 6 0 1 1 10.174 4.31c-.203.196-.359.4-.453.619l-.762 1.769A.5.5 0 0 1 10.5 13a.5.5 0 0 1 0 1 .5.5 0 0 1 0 1l-.224.447a1 1 0 0 1-.894.553H6.618a1 1 0 0 1-.894-.553L5.5 15a.5.5 0 0 1 0-1 .5.5 0 0 1 0-1 .5.5 0 0 1-.46-.302l-.761-1.77a1.964 1.964 0 0 0-.453-.618A6 6 0 0 1 2 6z"/></svg>',
+            'Física': '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-magnet-fill" viewBox="0 0 16 16"><path d="M15 12h-4v3h4v-3ZM5 12H1v3h4v-3ZM15 5H1v5h4v-1h6v1h4V5ZM1 4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v1H1V4Z"/></svg>',
+            'Geografia': '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-globe-americas" viewBox="0 0 16 16"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0ZM2.04 4.326c.325 1.329 2.532 2.54 3.717 3.19.48.263.793.434.743.484-.08.09-.162.158-.242.234-.416.396-.787.749-.758 1.266.035.634.618.824 1.214 1.017.577.188 1.168.38 1.286.983.082.417-.075.988-.22 1.52-.215.782-.406 1.48.22 1.48 1.5-.5 3.798-3.186 4-5 .167-1.5-.599-2.34-1.207-2.516-.6-.17-1.068.083-1.218.286-.145.195-.138.465.056.885.117.258.229.548.14.884-.093.345-.458.345-.718.345-.262 0-.62-.002-.718-.343-.146-.533.028-.914.234-1.284.206-.37.49-.655.778-.854.29-.2.653-.35.913-.502.26-.152.482-.3.616-.632.13-.316.155-.556.041-.818-.113-.268-.31-.49-.554-.66C12.034 4.21 10.33 3.5 8 3.5a4.258 4.258 0 0 0-1.755.284c-.378.145-.668.3-.87.523-.203.223-.33.467-.358.727a.895.895 0 0 0 .105.703.92.92 0 0 0 .127.241l.012.016.004.004.012.016.002.002c.083.092.17.19.23.29.06.1.11.208.13.318.02.11-.02.21-.12.268-.1.06-.24.04-.36-.04-.12-.08-.245-.21-.355-.36a1.416 1.416 0 0 1-.21-.36c-.083-.17-.15-.34-.18-.51a.614.614 0 0 1 .01-.405c.04-.14.1-.277.19-.406.09-.13.2-.245.35-.348a3.49 3.49 0 0 1 1.762-.534c.323.01.635.05.928.14.29.09.55.22.78.38.23.16.43.35.6.57.17.22.3.47.36.72.05.25.04.5-.02.72-.06.22-.18.42-.35.58-.17.16-.38.3-.63.4-.25.1-.53.18-.84.23-.3.05-.63.07-.94.05-.3-.02-.6-.08-.88-.18-.28-.1-.54-.23-.77-.4-.23-.17-.43-.37-.6-.59-.17-.22-.3-.48-.36-.75a.596.596 0 0 1 .03-.53c.06-.22.18-.42.35-.58.17-.16.38-.3.63-.4.25-.1.53-.18.84-.23.3-.05.63-.07.94-.05.3.02.6.08.88.18.28.1.54.23.77.4.23.17.43.37.6.59.17.22.3.48.36.75.06.27.03.54-.06.77-.1.23-.23.44-.4.61-.17.17-.37.32-.6.45-.23.13-.48.23-.75.31-.27.08-.56.13-.87.15-.3.02-.63.02-.94-.02-.3-.04-.6-.1-.88-.2-.28-.1-.54-.22-.77-.38-.23-.16-.43-.34-.6-.55-.17-.21-.3-.46-.35-.72a.66.66 0 0 1 .04-.56c.06-.21.18-.4.35-.56.17-.16.38-.3.63-.4.25-.1.53-.18.84-.23.3-.05.63-.07.94-.05.3.02.6.08.88.18.28.1.54.23.77.4.23.17.43.37.6.59.17.22.3.48.36.75.06.27.03.54-.06.77-.1.23-.23.44-.4.61-.17.17-.37.32-.6.45-.23.13-.48.23-.75.31-.27.08-.56.13-.87.15a3.9 3.9 0 0 1-1.88-.23c-.27-.08-.53-.18-.77-.3a2.49 2.49 0 0 1-1.9-2.74c.1-.73.5-1.28.8-1.63.3-.35.7-.64 1.1-.9.4-.26.8-.5 1.1-.78.3-.27.6-.58.8-.9.2-.32.3-.68.2-1.06-.1-.38-.3-.72-.6-1-.3-.28-.7-.5-1.2-.62-.5-.12-1.1-.12-1.7.03-.6.16-1.3.44-2.1.88-.8.44-1.7.92-2.7 1.52-1 .6-2.1 1.22-3.3 1.85-.4.2-.8.4-1.2.6-.4.2-.8.4-1.2.6-.4.2-.8.4-1.2.6a1.2 1.2 0 0 1-1.2-.6 1.2 1.2 0 0 1-.6-1.2c0-.4.2-.8.6-1.2.4-.4.8-.8 1.2-1.2.4-.4.8-.8 1.2-1.2.4-.4.8-.8 1.2-1.2.4-.4.8-.8 1.2-1.2.4-.4.8-.8 1.2-1.2.4-.4.8-.8 1.2-1.2a8.003 8.003 0 0 0-2.4-5.02Z"/></svg>',
+            'História': '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-hourglass-split" viewBox="0 0 16 16"><path d="M2.5 15a.5.5 0 1 1 0-1h11a.5.5 0 0 1 0 1h-11zm.36-1.873A.499.499 0 0 1 3 12.5v-5a.5.5 0 0 1 1 0v5h8v-5a.5.5 0 0 1 1 0v5a.5.5 0 0 1-.36.473l-5 2.5a.5.5 0 0 1-.28 0l-5-2.5zM3.5 11h9V6a4.5 4.5 0 1 0-9 0v5zM4.5 1a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 4.5 1zm8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2a.5.5 0 0 1 .5-.5z"/></svg>',
+            'Matemática': '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-calculator-fill" viewBox="0 0 16 16"><path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2zm2 .5v2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0-.5.5zm0 4v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zm0 3v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zm0 3v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zm3-6v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zm0 3v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zm0 3v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zm3-6v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zm0 3v4a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5z"/></svg>',
+            'Português': '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-book-fill" viewBox="0 0 16 16"><path d="M8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/></svg>',
+            'Química': '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eyedropper" viewBox="0 0 16 16"><path d="M13.354.646a1.207 1.207 0 0 0-1.708 0L8.5 3.793l-.646-.647a.5.5 0 1 0-.708.708L8.293 5l-7.147 7.146A.5.5 0 0 0 1 12.5v1.793l-.854.853a.5.5 0 1 0 .708.707L1.707 15H3.5a.5.5 0 0 0 .354-.146L11 7.707l1.146 1.147a.5.5 0 0 0 .708-.708l-.647-.646 3.147-3.146a1.207 1.207 0 0 0 0-1.708l-2-2zM2 12.707l7-7L10.293 7l-7 7H2v-1.293z"/></svg>',
+            'Redação': '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16"><path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/></svg>',
+            'Sociologia': '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16"><path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/></svg>'
+        };
+
+        // FUNÇÃO: Gerar HTML para Horários de Aula (Dropdown)
+        function createScheduleDay(day, periods) {
+            const createLessonHTML = (lessons) => lessons.map(lesson =>
+                `<div class="bg-gray-700 p-2 rounded text-center ${lesson === 'Intervalo' ? 'border border-yellow-400' : ''}">${lesson}</div>`
+            ).join('');
 
             return `
-                <div class="bg-gray-800 p-4 rounded-lg shadow-md">
-                    <h3 class="text-lg font-semibold text-white mb-3">${day}</h3>
-                    <div class="space-y-4">
+                <details class="bg-gray-800 rounded-lg shadow-md overflow-hidden">
+                    <summary class="cursor-pointer p-4 text-lg font-semibold text-white flex justify-between items-center">
+                        <span>${day}</span>
+                        <svg class="w-5 h-5 text-yellow-400 transform transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </summary>
+                    <div class="p-4 bg-gray-900 border-t border-gray-700 space-y-4">
                         <div>
-                            <h4 class="font-bold text-yellow-400 mb-2">Tarde</h4>
-                            <div class="grid grid-cols-1 gap-2 text-sm text-center">
-                                ${lessonsAfternoon}
-                            </div>
+                            <h4 class="font-bold text-yellow-400 mb-2">Vespertino</h4>
+                            <div class="grid grid-cols-1 gap-2 text-sm">${createLessonHTML(periods.vespertino)}</div>
                         </div>
                         <div>
-                            <h4 class="font-bold text-yellow-400 mb-2">Noite</h4>
-                            <div class="grid grid-cols-1 gap-2 text-sm text-center">
-                                ${lessonsNight}
-                            </div>
+                            <h4 class="font-bold text-yellow-400 mb-2">Noturno</h4>
+                            <div class="grid grid-cols-1 gap-2 text-sm">${createLessonHTML(periods.noturno)}</div>
                         </div>
                     </div>
-                </div>
+                </details>
             `;
         }
         
-        // Gera o conteúdo para Horários e Plano de Estudo
-        daysOfWeek.forEach(day => {
-            scheduleContainer.innerHTML += createDayStructure(day, 'Português');
-            studyPlanContainer.innerHTML += createDayStructure(day, 'Definir Matéria');
-        });
+        // FUNÇÃO: Gerar HTML para Plano de Estudos (Dropdown)
+        function createStudyPlanDay(day, subjects) {
+            const subjectItems = subjects.map(subject =>
+                `<div class="bg-gray-700 p-2 rounded text-center">${subject}</div>`
+            ).join('');
+
+            return `
+                <details class="bg-gray-800 rounded-lg shadow-md overflow-hidden">
+                    <summary class="cursor-pointer p-4 text-lg font-semibold text-white flex justify-between items-center">
+                        <span>${day}</span>
+                        <svg class="w-5 h-5 text-yellow-400 transform transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </summary>
+                    <div class="p-4 bg-gray-900 border-t border-gray-700">
+                        <div class="grid grid-cols-1 gap-2 text-sm">
+                            ${subjectItems}
+                        </div>
+                    </div>
+                </details>
+            `;
+        }
+
+        // FUNÇÃO: Gerar HTML para as Apostilas
+        function createHandoutButtons() {
+            const container = document.getElementById('handouts-container');
+            let html = '';
+            for (const subject in handouts) {
+                html += `
+                    <a href="#" target="_blank" class="bg-yellow-500 text-black font-bold py-3 px-4 rounded-lg flex items-center justify-center space-x-3 hover:bg-yellow-400 transition-colors">
+                        ${handouts[subject]}
+                        <span>Apostila de ${subject}</span>
+                    </a>
+                `;
+            }
+            container.innerHTML = html;
+        }
+
+        // --- Renderização do Conteúdo ---
+        const scheduleContainer = document.getElementById('schedule-container');
+        const studyPlanContainer = document.getElementById('study-plan-container');
+
+        // Renderiza Horários
+        for (const day in classSchedule) {
+            scheduleContainer.innerHTML += createScheduleDay(day, classSchedule[day]);
+        }
+
+        // Renderiza Plano de Estudos
+        for (const day in studyPlan) {
+            studyPlanContainer.innerHTML += createStudyPlanDay(day, studyPlan[day]);
+        }
+        
+        // Renderiza Apostilas
+        createHandoutButtons();
         
         // Exibe a página Home por padrão ao carregar
         document.addEventListener('DOMContentLoaded', () => {
