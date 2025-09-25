@@ -3,17 +3,17 @@
   "short_name": "Arquimedes",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#111827",
+  "background_color": "#212121",
   "theme_color": "#facc15",
   "description": "Seu app de organização de estudos.",
   "icons": [
     {
-      "src": "logo arquimedes.jpeg",
+      "src": "logo arquimedes.png",
       "type": "image/jpeg",
       "sizes": "192x192"
     },
     {
-      "src": "logo arquimedes.jpeg",
+      "src": "logo arquimedes.png",
       "type": "image/jpeg",
       "sizes": "512x512"
     }
