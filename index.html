@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arquimedes</title>
     
-    <!-- Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts: Inter --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- PWA Manifest --><link rel="manifest" href="manifest.webmanifest">
+    <link rel="manifest" href="manifest.webmanifest">
     
-    <!-- Apple Touch Icon --><link rel="apple-touch-icon" href="logo arquimedes.png">
+    <link rel="apple-touch-icon" href="logo arquimedes.png">
     
     <style>
         body {
@@ -46,37 +46,18 @@
         details[open] summary svg {
             transform: rotate(180deg);
         }
-        /* Estilos para o conteúdo injetado do Google Docs */
-        #notices-content-inner {
-            color: #1f2937; /* Garante que o texto seja escuro */
-            /* NOVO: Força o background do conteúdo injetado a ser transparente */
-            background-color: transparent !important; 
-        }
-        #notices-content-inner p {
-            margin-bottom: 0.75rem; /* Adiciona espaço entre parágrafos */
-        }
-        #notices-content-inner * {
-           max-width: 100%; /* Garante que imagens/tabelas não quebrem o layout */
-           /* NOVO: Aplica fundo transparente a todos os elementos dentro do conteúdo injetado, caso o Google Docs adicione fundos específicos */
-           background-color: transparent !important;
-        }
-        /* NOVO: Targeta a tag <html> ou <body> que o Google Docs pode injetar com fundo branco */
-        #notices-content-inner html,
-        #notices-content-inner body {
-            background-color: transparent !important;
-        }
     </style>
 </head>
 <body class="bg-gray-900 text-white">
 
     <div id="app" class="max-w-md mx-auto h-screen flex flex-col">
-        <!-- Cabeçalho Fixo --><header class="bg-black text-center py-2 shadow-lg sticky top-0 z-10">
-             <img src="logo arquimedes.png" alt="Logo Arquimedes" class="h-12 mx-auto cursor-pointer" onclick="showPage('home')">
+        <header class="bg-black text-center py-2 shadow-lg sticky top-0 z-10">
+             <img src="logo arquimedes.jpeg" alt="Logo Arquimedes" class="h-12 mx-auto cursor-pointer" onclick="showPage('home')">
         </header>
 
-        <!-- Conteúdo Principal (rolável) --><main class="flex-grow overflow-y-auto p-4 pb-24">
+        <main class="flex-grow overflow-y-auto p-4 pb-24">
 
-            <!-- Seção: Home --><section id="home" class="page">
+            <section id="home" class="page">
                 <div class="space-y-4">
                     <div class="bg-gray-800 p-6 rounded-lg shadow-md text-center cursor-pointer transform hover:scale-105 transition-transform duration-300" onclick="showPage('horarios')">
                         <h2 class="text-xl font-semibold text-yellow-400">Horários</h2>
@@ -93,19 +74,19 @@
                 </div>
             </section>
 
-            <!-- Seção: Horários --><section id="horarios" class="page hidden">
+            <section id="horarios" class="page hidden">
                 <h2 class="text-2xl font-bold mb-4 text-yellow-400 border-b-2 border-yellow-400 pb-2">Horários de Aula</h2>
                 <div id="schedule-container" class="space-y-4">
-                    <!-- Horários de aula (dropdown) serão injetados aqui pelo JS --></div>
+                    </div>
             </section>
             
-            <!-- Seção: Plano de Estudo --><section id="plano" class="page hidden">
+            <section id="plano" class="page hidden">
                 <h2 class="text-2xl font-bold mb-4 text-yellow-400 border-b-2 border-yellow-400 pb-2">Plano de Estudo</h2>
                 <div id="study-plan-container" class="space-y-4">
-                    <!-- Plano de estudo (dropdown) será injetado aqui pelo JS --></div>
+                    </div>
             </section>
 
-            <!-- Seção: Apostilas --><section id="apostilas" class="page hidden">
+            <section id="apostilas" class="page hidden">
                  <h2 class="text-2xl font-bold mb-4 text-yellow-400 border-b-2 border-yellow-400 pb-2">Apostilas e Recados</h2>
                  <div class="grid grid-cols-1 gap-4">
                     <a href="https://drive.google.com/drive/folders/13OvgPXNbPF6LESRxwB7KrKqUZXLieU9k?usp=sharing" target="_blank" class="bg-yellow-500 text-black font-bold py-3 px-4 rounded-lg flex items-center justify-center space-x-3 hover:bg-yellow-400 transition-colors">
@@ -132,25 +113,25 @@
             </section>
         </main>
 
-        <!-- Banner de Instalação --><div id="install-banner" class="hidden fixed bottom-20 w-full max-w-md mx-auto p-4 z-20">
+        <div id="install-banner" class="hidden fixed bottom-20 w-full max-w-md mx-auto p-4 z-20">
             <button id="install-btn" class="w-full bg-yellow-500 text-black font-bold py-3 px-4 rounded-lg flex items-center justify-center space-x-2 hover:bg-yellow-400 transition-colors shadow-lg">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>
                 <span>Instalar Aplicativo</span>
             </button>
         </div>
 
-        <!-- Modal de Recados --><div id="notices-modal" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50">
-            <div class="bg-yellow-100 text-gray-800 p-6 rounded-lg shadow-xl max-w-sm w-full relative transform transition-all">
+        <div id="notices-modal" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50">
+            <div class="bg-yellow-100 text-gray-800 p-6 rounded-lg shadow-xl max-w-sm w-full relative transform transition-all" style="font-family: 'Courier New', monospace;">
                 <button onclick="closeNotices()" class="absolute top-2 right-2 text-gray-600 hover:text-black">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                    <svg xmlns="http://www.w.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                 </button>
                 <h3 class="text-xl font-bold mb-4 border-b border-gray-400 pb-2">Mural de Recados</h3>
-                <div id="notices-content" class="text-sm" style="min-height: 100px; max-height: 50vh; overflow-y: auto;">
-                    <!-- Conteúdo do Google Docs será inserido aqui --></div>
+                <div id="notices-content" class="whitespace-pre-wrap text-sm" style="min-height: 100px; max-height: 50vh; overflow-y: auto;">
+                    </div>
             </div>
         </div>
 
-        <!-- Barra de Navegação Fixa --><nav class="bg-black border-t border-gray-700 fixed bottom-0 w-full max-w-md mx-auto grid grid-cols-4 text-center">
+        <nav class="bg-black border-t border-gray-700 fixed bottom-0 w-full max-w-md mx-auto grid grid-cols-4 text-center">
             <button onclick="showPage('home')" class="nav-btn p-3 text-yellow-400" data-page="home">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
                 <span class="text-xs">Home</span>
@@ -228,11 +209,10 @@
         // --- Dynamic Content Generation ---
         
         const classSchedule = {
-            'Segunda-feira': { vespertino: ['História', 'História', 'Intervalo', 'Biologia', 'Biologia'], noturno: ['Biologia', 'Biologia', 'Intervalo', 'História', 'História'] },
-            'Terça-feira': { vespertino: ['Sociologia', 'Sociologia', 'Intervalo', 'Física', 'Física'], noturno: ['Física', 'Física', 'Intervalo', 'Sociologia', 'Filosofia'] },
-            'Quarta-feira': { vespertino: ['Matemática', 'Matemática', 'Intervalo', 'Geografia', 'Geografia'], noturno: ['Geografia', 'Geografia', 'Intervalo', 'Português', 'Português'] },
-            'Quinta-feira': { vespertino: ['Química', 'Química', 'Intervalo', 'Arte', 'Arte'], noturno: ['Química', 'Química', 'Intervalo', 'Arte', 'Arte'] },
-            'Sexta-feira': { vespertino: ['Filosofia', 'Filosofia', 'Intervalo', 'Português/Redação', 'Português/Redação'], noturno: ['Redação', 'Redação', 'Intervalo', 'Matemática', 'Matemática'] }
+            'Segunda-feira': { vespertino: ['Português/Redação', 'Português/Redação', 'Intervalo', 'Matemática', 'Matemática'], noturno: ['Português/Redação', 'Português/Redação', 'Intervalo', 'Matemática', 'Matemática'] },
+            'Terça-feira': { vespertino: ['Química', 'Química', 'Intervalo', 'Matemática', 'Matemática'], noturno: ['Química', 'Química', 'Intervalo', 'Matemática', 'Matemática'] },
+            'Quarta-feira': { vespertino: ['História', 'Artes', 'Intervalo', 'Geografia', 'Geografia'], noturno: ['História', 'Artes', 'Intervalo', 'Geografia', 'Geografia'] },
+            'Quinta-feira': { vespertino: ['Filosofia', 'Sociologia', 'Intervalo', 'Física', 'Física'], noturno: ['Filosofia', 'Sociologia', 'Intervalo', 'Física', 'Física'] }
         };
         
         const studyPlan = {
@@ -240,15 +220,16 @@
             'Terça-feira': ['Matemática', 'Matemática', 'Geografia', 'Geografia'],
             'Quarta-feira': ['Química', 'Química', 'Arte', 'Arte'],
             'Quinta-feira': ['Filosofia', 'Filosofia', 'Português', 'Português'],
-            'Sexta-feira': ['História', 'História', 'Biologia', 'Biologia'],
-            'Sábado': ['Redação']
+            'Sexta-feira': ['Redação', 'Redação', 'Redação', 'Redação']
         };
 
+        // FUNÇÃO: Gerar HTML para Horários de Aula (Dropdown)
         function createScheduleDay(day, periods) {
             const createLessonHTML = (lessons) => lessons.map(lesson => `<div class="bg-gray-700 p-2 rounded text-center ${lesson === 'Intervalo' ? 'border border-yellow-400' : ''}">${lesson}</div>`).join('');
             return `<details class="bg-gray-800 rounded-lg shadow-md overflow-hidden"><summary class="cursor-pointer p-4 text-lg font-semibold text-white flex justify-between items-center"><span>${day}</span><svg class="w-5 h-5 text-yellow-400 transform transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg></summary><div class="p-4 bg-gray-900 border-t border-gray-700 space-y-4"><div><h4 class="font-bold text-yellow-400 mb-2">Vespertino</h4><div class="grid grid-cols-1 gap-2 text-sm">${createLessonHTML(periods.vespertino)}</div></div><div><h4 class="font-bold text-yellow-400 mb-2">Noturno</h4><div class="grid grid-cols-1 gap-2 text-sm">${createLessonHTML(periods.noturno)}</div></div></div></details>`;
         }
         
+        // FUNÇÃO: Gerar HTML para Plano de Estudos (Dropdown)
         function createStudyPlanDay(day, subjects) {
             const subjectItems = subjects.map(subject => `<div class="bg-gray-700 p-2 rounded text-center">${subject}</div>`).join('');
             return `<details class="bg-gray-800 rounded-lg shadow-md overflow-hidden"><summary class="cursor-pointer p-4 text-lg font-semibold text-white flex justify-between items-center"><span>${day}</span><svg class="w-5 h-5 text-yellow-400 transform transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg></summary><div class="p-4 bg-gray-900 border-t border-gray-700"><div class="grid grid-cols-1 gap-2 text-sm">${subjectItems}</div></div></details>`;
@@ -265,17 +246,22 @@
         // --- Modal de Recados Logic ---
         const noticesModal = document.getElementById('notices-modal');
         const noticesContent = document.getElementById('notices-content');
-        
-        // Link do Google Docs publicado na web
-        const googleDocsUrl = 'https://docs.google.com/document/d/e/2PACX-1vRnok5bnPt-uVGvtIUUC7CnmuXlaBcBNojmKsMPy-gZhblbLDVN-UPlG9TncqusXkmbvXBlSkuGce0o/pub';
+
+        // IMPORTANTE: Se você tiver um link de Google Docs "Publicado na Web" ou um arquivo .txt, insira o ID aqui
+        const googleDriveFileId = 'YOUR_FILE_ID_HERE'; 
+        const driveUrl = `https://drive.google.com/uc?export=download&id=${googleDriveFileId}`;
 
         async function showNotices() {
             noticesModal.classList.remove('hidden');
-            noticesContent.innerHTML = 'Carregando recados...';
-            
+            noticesContent.textContent = 'Carregando recados...';
+
+            if (googleDriveFileId === 'YOUR_FILE_ID_HERE') {
+                noticesContent.textContent = 'CONFIGURAÇÃO NECESSÁRIA:\n\nPara que os recados funcionem, edite o código e insira o ID do arquivo.';
+                return;
+            }
+
             try {
-                // Usamos um serviço de proxy para contornar restrições de segurança (CORS) do navegador.
-                const encodedUrl = encodeURIComponent(googleDocsUrl + '?embedded=true');
+                const encodedUrl = encodeURIComponent(driveUrl);
                 const proxyFetchUrl = `https://api.allorigins.win/raw?url=${encodedUrl}`;
                 
                 const response = await fetch(proxyFetchUrl);
@@ -284,24 +270,11 @@
                     throw new Error(`Erro na rede ou link inválido.`);
                 }
 
-                const html = await response.text();
-                
-                // O Google Docs publicado vem com um HTML completo (<html>, <head>, <body>).
-                // Precisamos extrair apenas o conteúdo de dentro da tag <body>.
-                const bodyContent = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
-
-                if (bodyContent && bodyContent[1]) {
-                    // Injetamos o conteúdo do body dentro de uma div para aplicar estilos.
-                    // Adicionamos um estilo para garantir que o fundo seja transparente.
-                    noticesContent.innerHTML = `<div id="notices-content-inner" style="background-color: transparent !important;">${bodyContent[1]}</div>`;
-                } else {
-                    // Caso não encontre a tag <body>, exibe o HTML bruto como fallback.
-                    noticesContent.innerHTML = `<div id="notices-content-inner" style="background-color: transparent !important;">${html}</div>`;
-                }
-
+                const text = await response.text();
+                noticesContent.textContent = text;
             } catch (error) {
-                console.error('Erro ao buscar o arquivo de recados:', error);
-                noticesContent.textContent = `Não foi possível carregar os recados.\n\nVerifique sua conexão com a internet ou se o link do Google Docs está correto e publicado.\n\n(${error.message})`;
+                console.error('Erro ao buscar recados:', error);
+                noticesContent.textContent = `Não foi possível carregar os recados. (${error.message})`;
             }
         }
 
@@ -309,7 +282,6 @@
             noticesModal.classList.add('hidden');
         }
 
-        // Fecha o modal se o usuário clicar na área escura do fundo
         noticesModal.addEventListener('click', (event) => {
             if (event.target.id === 'notices-modal') {
                 closeNotices();
@@ -319,4 +291,3 @@
     </script>
 </body>
 </html>
-
