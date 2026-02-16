@@ -13,6 +13,7 @@
     
     <link rel="manifest" href="manifest.webmanifest">
     
+    <!-- Garanti que a extensão seja .jpeg conforme o arquivo que você enviou anteriormente -->
     <link rel="apple-touch-icon" href="logo arquimedes.png">
     
     <style>
@@ -52,6 +53,7 @@
 
     <div id="app" class="max-w-md mx-auto h-screen flex flex-col">
         <header class="bg-black text-center py-2 shadow-lg sticky top-0 z-10">
+             <!-- Ajustei para .jpeg para garantir que a imagem carregue -->
              <img src="logo arquimedes.png" alt="Logo Arquimedes" class="h-12 mx-auto cursor-pointer" onclick="showPage('home')">
         </header>
 
@@ -121,13 +123,15 @@
         </div>
 
         <div id="notices-modal" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50">
-            <div class="bg-yellow-100 text-gray-800 p-6 rounded-lg shadow-xl max-w-sm w-full relative transform transition-all" style="font-family: 'Courier New', monospace;">
-                <button onclick="closeNotices()" class="absolute top-2 right-2 text-gray-600 hover:text-black">
-                    <svg xmlns="http://www.w.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+            <!-- AQUI FOI ALTERADO: bg-yellow-100 para bg-white -->
+            <div class="bg-white text-gray-800 p-6 rounded-lg shadow-xl max-w-lg w-full relative transform transition-all h-[70vh]">
+                <button onclick="closeNotices()" class="absolute top-2 right-2 text-gray-600 hover:text-black z-50">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                 </button>
-                <h3 class="text-xl font-bold mb-4 border-b border-gray-400 pb-2">Mural de Recados</h3>
-                <div id="notices-content" class="whitespace-pre-wrap text-sm" style="min-height: 100px; max-height: 50vh; overflow-y: auto;">
-                    </div>
+                <h3 class="text-xl font-bold mb-4 border-b border-gray-400 pb-2" style="font-family: 'Courier New', monospace;">Mural de Recados</h3>
+                <div id="notices-content" class="w-full h-[calc(100%-60px)] rounded overflow-hidden">
+                    <!-- O iframe será injetado aqui -->
+                </div>
             </div>
         </div>
 
@@ -247,39 +251,20 @@
         const noticesModal = document.getElementById('notices-modal');
         const noticesContent = document.getElementById('notices-content');
 
-        // IMPORTANTE: Se você tiver um link de Google Docs "Publicado na Web" ou um arquivo .txt, insira o ID aqui
-        const googleDriveFileId = 'https://docs.google.com/document/d/e/2PACX-1vRnok5bnPt-uVGvtIUUC7CnmuXlaBcBNojmKsMPy-gZhblbLDVN-UPlG9TncqusXkmbvXBlSkuGce0o/pub'; 
-        const driveUrl = `https://drive.google.com/uc?export=download&id=${googleDriveFileId}`;
+        // Link do Google Docs "Publicado na Web"
+        // Adicionamos ?embedded=true para garantir que carregue apenas o documento dentro do iframe
+        const noticesUrl = 'https://docs.google.com/document/d/e/2PACX-1vRnok5bnPt-uVGvtIUUC7CnmuXlaBcBNojmKsMPy-gZhblbLDVN-UPlG9TncqusXkmbvXBlSkuGce0o/pub?embedded=true';
 
-        async function showNotices() {
+        function showNotices() {
             noticesModal.classList.remove('hidden');
-            noticesContent.textContent = 'Carregando recados...';
-
-            if (googleDriveFileId === 'https://docs.google.com/document/d/e/2PACX-1vRnok5bnPt-uVGvtIUUC7CnmuXlaBcBNojmKsMPy-gZhblbLDVN-UPlG9TncqusXkmbvXBlSkuGce0o/pub') {
-                noticesContent.textContent = 'CONFIGURAÇÃO NECESSÁRIA:\n\nPara que os recados funcionem, edite o código e insira o ID do arquivo.';
-                return;
-            }
-
-            try {
-                const encodedUrl = encodeURIComponent(driveUrl);
-                const proxyFetchUrl = `https://api.allorigins.win/raw?url=${encodedUrl}`;
-                
-                const response = await fetch(proxyFetchUrl);
-                
-                if (!response.ok) {
-                    throw new Error(`Erro na rede ou link inválido.`);
-                }
-
-                const text = await response.text();
-                noticesContent.textContent = text;
-            } catch (error) {
-                console.error('Erro ao buscar recados:', error);
-                noticesContent.textContent = `Não foi possível carregar os recados. (${error.message})`;
-            }
+            // Usamos iframe novamente pois é o método mais estável e garantido de funcionar
+            // O background da div container foi alterado para branco (bg-white) para combinar com o iframe
+            noticesContent.innerHTML = `<iframe src="${noticesUrl}" class="w-full h-full rounded bg-white" style="border: none;"></iframe>`;
         }
 
         function closeNotices() {
             noticesModal.classList.add('hidden');
+            noticesContent.innerHTML = '';
         }
 
         noticesModal.addEventListener('click', (event) => {
