@@ -209,10 +209,10 @@
         // --- Dynamic Content Generation ---
         
         const classSchedule = {
-            'Segunda-feira': { vespertino: ['Português/Redação', 'Português/Redação', 'Intervalo', 'Matemática', 'Matemática'], noturno: ['Português/Redação', 'Português/Redação', 'Intervalo', 'Matemática', 'Matemática'] },
-            'Terça-feira': { vespertino: ['Química', 'Química', 'Intervalo', 'Matemática', 'Matemática'], noturno: ['Química', 'Química', 'Intervalo', 'Matemática', 'Matemática'] },
-            'Quarta-feira': { vespertino: ['História', 'Artes', 'Intervalo', 'Geografia', 'Geografia'], noturno: ['História', 'Artes', 'Intervalo', 'Geografia', 'Geografia'] },
-            'Quinta-feira': { vespertino: ['Filosofia', 'Sociologia', 'Intervalo', 'Física', 'Física'], noturno: ['Filosofia', 'Sociologia', 'Intervalo', 'Física', 'Física'] }
+            'Segunda-feira': { vespertino: ['Português/Redação', 'Português/Redação', 'Intervalo', 'Matemática', 'Matemática'], noturno: ['Biologia', 'Biologia', 'Intervalo', 'Português/Redação', 'Português/Redação'] },
+            'Terça-feira': { vespertino: ['Química', 'Química', 'Intervalo', 'Matemática', 'Matemática'], noturno: ['Matemática', 'Matemática', 'Intervalo', 'História', 'História'] },
+            'Quarta-feira': { vespertino: ['História', 'Artes', 'Intervalo', 'Geografia', 'Geografia'], noturno: ['Geografia', 'Geografia', 'Intervalo', 'Química', 'Química'] },
+            'Quinta-feira': { vespertino: ['Filosofia', 'Sociologia', 'Intervalo', 'Física', 'Física'], noturno: ['Filosofia', 'Sociologia', 'Intervalo', 'Arte', 'Arte'] }
         };
         
         const studyPlan = {
@@ -248,14 +248,14 @@
         const noticesContent = document.getElementById('notices-content');
 
         // IMPORTANTE: Se você tiver um link de Google Docs "Publicado na Web" ou um arquivo .txt, insira o ID aqui
-        const googleDriveFileId = 'YOUR_FILE_ID_HERE'; 
+        const googleDriveFileId = 'https://docs.google.com/document/d/e/2PACX-1vRnok5bnPt-uVGvtIUUC7CnmuXlaBcBNojmKsMPy-gZhblbLDVN-UPlG9TncqusXkmbvXBlSkuGce0o/pub'; 
         const driveUrl = `https://drive.google.com/uc?export=download&id=${googleDriveFileId}`;
 
         async function showNotices() {
             noticesModal.classList.remove('hidden');
             noticesContent.textContent = 'Carregando recados...';
 
-            if (googleDriveFileId === 'YOUR_FILE_ID_HERE') {
+            if (googleDriveFileId === 'https://docs.google.com/document/d/e/2PACX-1vRnok5bnPt-uVGvtIUUC7CnmuXlaBcBNojmKsMPy-gZhblbLDVN-UPlG9TncqusXkmbvXBlSkuGce0o/pub') {
                 noticesContent.textContent = 'CONFIGURAÇÃO NECESSÁRIA:\n\nPara que os recados funcionem, edite o código e insira o ID do arquivo.';
                 return;
             }
