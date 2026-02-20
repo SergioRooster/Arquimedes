@@ -13,7 +13,6 @@
     
     <link rel="manifest" href="manifest.webmanifest">
     
-    <!-- Garanti que a extensão seja .jpeg conforme o arquivo que você enviou anteriormente -->
     <link rel="apple-touch-icon" href="logo arquimedes.png">
     
     <style>
@@ -53,7 +52,6 @@
 
     <div id="app" class="max-w-md mx-auto h-screen flex flex-col">
         <header class="bg-black text-center py-2 shadow-lg sticky top-0 z-10">
-             <!-- Ajustei para .jpeg para garantir que a imagem carregue -->
              <img src="logo arquimedes.png" alt="Logo Arquimedes" class="h-12 mx-auto cursor-pointer" onclick="showPage('home')">
         </header>
 
@@ -104,7 +102,7 @@
                         <span>Apostilas 3</span>
                     </a>
                     <a href="https://drive.google.com/drive/folders/1yO9vdCZub0HWUdRR58RBDHqM4WconGdr?usp=sharing" target="_blank" class="bg-yellow-500 text-black font-bold py-3 px-4 rounded-lg flex items-center justify-center space-x-3 hover:bg-yellow-400 transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-folder-plus" viewBox="0 0 16 16"><path d="m.5 3 .04.87a1.99 1.99 0 0 0-.342 1.311l.637 7A2 2 0 0 0 2.826 14H9v-1H2.826a1 1 0 0 1-.995-.91l-.637-7A1 1 0 0 1 2.19 4h11.62a1 1 0 0 1 .996 1.09L14.54 8h1.005l.256-2.819A2 2 0 0 0 13.81 3H9.828a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 6.172 1H2.5a2 2 0 0 0-2 2zm5.672-1a1 1 0 0 1 .707.293L7.586 3H2.19c-.24 0-.47.042-.683.12L1.5 2.98a1 1 0 0 1 1-1h3.672z"/><path d="M13.5 10a.5.5 0 0 1 .5.5V12h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V13h-1.5a.5.5 0 0 1 0-1H13v-1.5a.5.5 0 0 1 .5-.5z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-folder-plus" viewBox="0 0 16 16"><path d="m.5 3 .04.87a1.99 1.99 0 0 0-.342 1.311l.637 7A2 2 0 0 0 2.826 14H9v-1H2.826a1 1 0 0 1-.995-.91l-.637-7A1 1 0 0 1 2.19 4h11.62a1 1 0 0 1 .996 1.09L14.54 8h1.005l.256-2.819A2 2 0 0 0 13.81 3H9.828a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 6.172 1H2.5a2 2 0 0 0-2 2zm5.672-1a1 1 0 0 1 .707.293L7.586 3H2.19c-.24 0-.47.042-.683.12L1.5 2.98a1 1 0 0 1 1-1h3.672z"/><path d="M13.5 10a.5.5 0 0 1 .5.5V12h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V13h-1.5a.5.5 0 0 1 .5-.5z"/></svg>
                         <span>Material Extra</span>
                     </a>
                      <button onclick="showNotices()" class="bg-gray-700 text-yellow-400 font-bold py-3 px-4 rounded-lg flex items-center justify-center space-x-3 hover:bg-gray-600 transition-colors border border-yellow-400">
@@ -123,15 +121,13 @@
         </div>
 
         <div id="notices-modal" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50">
-            <!-- AQUI FOI ALTERADO: bg-yellow-100 para bg-white -->
             <div class="bg-white text-gray-800 p-6 rounded-lg shadow-xl max-w-lg w-full relative transform transition-all h-[70vh]">
                 <button onclick="closeNotices()" class="absolute top-2 right-2 text-gray-600 hover:text-black z-50">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
                 </button>
                 <h3 class="text-xl font-bold mb-4 border-b border-gray-400 pb-2" style="font-family: 'Courier New', monospace;">Mural de Recados</h3>
                 <div id="notices-content" class="w-full h-[calc(100%-60px)] rounded overflow-hidden">
-                    <!-- O iframe será injetado aqui -->
-                </div>
+                    </div>
             </div>
         </div>
 
@@ -219,12 +215,18 @@
             'Quinta-feira': { vespertino: ['Filosofia', 'Sociologia', 'Intervalo', 'Física', 'Física'], noturno: ['Filosofia', 'Sociologia', 'Intervalo', 'Arte', 'Arte'] }
         };
         
+        // AQUI ESTÃO AS ALTERAÇÕES DO PLANO DE ESTUDO
         const studyPlan = {
-            'Segunda-feira': ['Sociologia', 'Sociologia', 'Física', 'Física'],
-            'Terça-feira': ['Matemática', 'Matemática', 'Geografia', 'Geografia'],
-            'Quarta-feira': ['Química', 'Química', 'Arte', 'Arte'],
-            'Quinta-feira': ['Filosofia', 'Filosofia', 'Português', 'Português'],
-            'Sexta-feira': ['Redação', 'Redação', 'Redação', 'Redação']
+            'Segunda-feira': ['Sociologia', 'Física'],
+            'Terça-feira': ['Matemática', 'Geografia'],
+            'Quarta-feira': ['Química', 'História', 'Arte'],
+            'Quinta-feira': ['Filosofia', 'Português'],
+            'Sexta-feira': [
+                'Redação - Saúde e Bem-Estar',
+                'Saúde mental entre jovens: o impacto das redes sociais e a pressão por desempenho',
+                'A importância da saúde mental no ambiente de trabalho',
+                'O estigma associado às doenças mentais na sociedade brasileira'
+            ]
         };
 
         // FUNÇÃO: Gerar HTML para Horários de Aula (Dropdown)
